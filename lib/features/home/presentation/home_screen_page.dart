@@ -1,6 +1,9 @@
+import 'package:device_frame/device_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/core/presentation/layout/responsive_screen_shell.dart';
-import 'package:my_portfolio/core/theme/font_manager.dart';
+import 'package:my_portfolio/config/theme/font_manager.dart';
+import 'package:my_portfolio/features/home/presentation/pages/home_hero_header.dart';
+import 'package:my_portfolio/features/home/presentation/pages/social_service_dashboard.dart';
 
 class HomeScreenPage extends StatefulWidget {
   const HomeScreenPage({super.key});
@@ -19,15 +22,15 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         TextButton(onPressed: () {}, child: const Text('Projects')),
       ],
       // Just pass your widgets here!
-      children: const [
-        Text(
-          'Hello, World!',
-          style: TextStyle(
-            fontFamily: FontManager.fontFamily,
-            fontSize: FontSize.s20,
-            fontWeight: FontWeightManager.semiBold,
-          ),
-        ), // Right item on Desktop, Bottom item on Mobile
+      children: [
+        HomeHeroHeader(),
+
+        SizedBox(height: 20),
+
+        // 2. Bottom Section: Social Media Device Dashboard
+        Center(child: SocialDeviceDashboard()),
+
+        SizedBox(height: 60),
       ],
     );
   }
