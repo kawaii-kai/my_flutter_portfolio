@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ColorManager {
-  static Color primary = HexColor.fromHex("#11B5E4");
-  static Color white = HexColor.fromHex("#FFF8F0");
+  static Color primary = HexColor.fromHex("#2E1C4D"); // Deep Nebula Violet
+  static Color secondary = HexColor.fromHex("##502A6A"); //Cosmic Magenta
+  static Color accent = HexColor.fromHex("#8C52FF"); // Stardust Purple
   static Color black = HexColor.fromHex("#000000");
   static Color royalblue = HexColor.fromHex("#01295F");
   static Color cerulean = HexColor.fromHex("#247BA0");
@@ -29,3 +30,13 @@ extension HexColor on Color {
     return Color(int.parse(hexColorString, radix: 16));
   }
 }
+
+const LinearGradient nebulaGlowGradient = LinearGradient(
+  colors: [
+    Color(0xFF2E1C4D),
+    Color(0xFF502A6A),
+    Color(0xFF8C52FF),
+  ],
+  begin: Alignment.bottomLeft,
+  end: Alignment.topRight,
+);
