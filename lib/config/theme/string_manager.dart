@@ -3,7 +3,7 @@ abstract class AppStrings {
   static const String introBody =
       'Scroll down to explore my journey, tech stack, and experience.';
   static const String slide1Badge = 'SLIDE 1 • INTRO';
-  static const String slide3Badge = 'SLIDE 3 • SUMMARY';
+  static const String slide3Badge = 'SLIDE 2 • SUMMARY';
   static const String slide4Badge = 'SLIDE 4 • TECHNICAL SKILLS';
   static const String slide5Badge = 'SLIDE 5 • WORK EXPERIENCE';
   static const String slide6Badge = 'SLIDE 6 • FEATURED PROJECTS';
@@ -17,7 +17,7 @@ abstract class AppStrings {
   static const String jobTitle =
       'Flutter Developer & Mobile Engineer | Android • iOS';
   static const String email = 'baliaokyla0209@gmail.com';
-  static const String phone = '+63 09493904830';
+  static const String phone = '+63 9493904830';
   static const String linkedin = 'linkedin.com/in/kyla-baliao-193bab262';
   static const String location = 'Makati, Philippines';
 
