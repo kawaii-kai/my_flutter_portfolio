@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 class ColorManager {
   static Color primary = HexColor.fromHex("#2E1C4D"); // Deep Nebula Violet
   static Color secondary = HexColor.fromHex("##502A6A"); //Cosmic Magenta
-  static Color accent = HexColor.fromHex("#8C52FF"); // Stardust Purple
-  static Color black = HexColor.fromHex("#000000");
-  static Color royalblue = HexColor.fromHex("#01295F");
-  static Color cerulean = HexColor.fromHex("#247BA0");
-  static Color moonstone = HexColor.fromHex("#48B8D0");
-  static Color lightgray = HexColor.fromHex("#C2CFD8");
-  static Color gray = HexColor.fromHex("#606470");
-  static Color darkgray = HexColor.fromHex("#3A4750");
-  static Color red = HexColor.fromHex("#A31D1D");
-  static Color darkred = HexColor.fromHex("#820300");
-  static Color navyBlue = HexColor.fromHex("002455");
+  static Color starDustPurple = HexColor.fromHex("#8C52FF"); // Stardust Purple
+  static Color purple = HexColor.fromHex("0xFF6C5CE7");
+  static Color stellarCard = Color(0xFF1D2636);
+  static Color primaryPurle = HexColor.fromHex("6C5CE7");
+  static Color deepSpaceBlack = Color(0xFF0B0E14);
+  static Color cosmicSpace = const Color(0xFF131822);
+  static Color astralGold = Color(0xFFD4AF37);
+  static Color astralSilver = Color(0xFFC0C0C0);
+  static Color astralBronze = Color(0xFFCD7F32);
+  static Color astralBlue = Color(0xFF007FFF);
+  static Color starlightWhite = Color(0xFFF1F5F9);
+  static Color dustyGray = Color(0xFF94A3B8);
+  static Color nebulaDim = Color(0xFF2A3447);
+  static Color lightPurple = HexColor.fromHex("##502A6A").withOpacity(0.6);
+  static Color blackOpacity = const Color(0xFF141622).withOpacity(0.88);
+  static Color whiteTransparent = Colors.white.withOpacity(0.06);
 }
 
 //Extension keyword in dart allows you to add new methods or properties to existing classes
@@ -32,11 +37,7 @@ extension HexColor on Color {
 }
 
 const LinearGradient nebulaGlowGradient = LinearGradient(
-  colors: [
-    Color(0xFF2E1C4D),
-    Color(0xFF502A6A),
-    Color(0xFF8C52FF),
-  ],
+  colors: [Color(0xFF2E1C4D), Color(0xFF502A6A), Color(0xFF8C52FF)],
   begin: Alignment.bottomLeft,
   end: Alignment.topRight,
 );
