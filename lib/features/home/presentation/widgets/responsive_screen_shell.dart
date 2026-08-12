@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/theme/string_manager.dart';
 import 'package:my_portfolio/core/presentation/layout/cosmos_rive_background.dart';
-import 'package:my_portfolio/features/home/presentation/widgets/section_badge_tag.dart';
-import 'package:my_portfolio/features/home/presentation/pages/home_experience_card.dart';
-import 'package:my_portfolio/features/home/presentation/pages/home_intro_badge.dart';
-import 'package:my_portfolio/features/home/presentation/pages/home_projects_education_badge.dart';
-import 'package:my_portfolio/features/home/presentation/pages/home_skills_card.dart';
 import 'package:my_portfolio/core/utils/layout_helpers.dart';
-import 'package:my_portfolio/features/home/presentation/pages/home_hero_header.dart';
+
+typedef SlideBuilder = Widget Function(bool isMobile, double maxWidth);
 
 class ResponsiveScreenShell extends StatefulWidget {
-  final List<Widget>? children;
-  final Widget? mobile;
-  final Widget? desktop;
+  final SlideBuilder? slide1Intro;
+  final SlideBuilder? slide2Header;
+  final List<SlideBuilder> slideBuilders; 
 
   final String? title;
   final List<Widget>? actions;
@@ -20,9 +15,9 @@ class ResponsiveScreenShell extends StatefulWidget {
 
   const ResponsiveScreenShell({
     super.key,
-    this.children,
-    this.mobile,
-    this.desktop,
+    this.slide1Intro,
+    this.slide2Header,
+    required this.slideBuilders,
     this.title,
     this.actions,
     this.maxWidth = 1200,
@@ -56,63 +51,59 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    //? Fixed scroll math so slide count accurately reaches 6 at the absolute bottom
-    final maxScroll = _scrollController.hasClients
-        ? _scrollController.position.maxScrollExtent
-        : 1.0;
-    final progress = maxScroll > 0
-        ? (_scrollOffset / maxScroll).clamp(0.0, 1.0)
-        : 0.0;
-    final int currentSlide = ((progress * 5).round() + 1).clamp(1, 6);
-
     // =========================================================================
-    //? SCROLL MILESTONES & TRANSITION TIMINGS
+    //? DYNAMIC SLIDE COUNT & ACCURATE INDICATOR CALCULATION
     // =========================================================================
-    final double step1ZoomEnd = screenHeight * 1.0;
-    final double step2HeaderEnd = screenHeight * 2.0;
+    final int totalSlides = 2 + widget.slideBuilders.length;
 
-    //! 1. HERO IMAGE ZOOM (SLIDE 1)
-    final double zoomProgress = (_scrollOffset / step1ZoomEnd).clamp(0.0, 1.0);
-    final double imageScale = 1.0 + (zoomProgress * 0.18);
+    int getCalculatedSlide() {
+      if (_scrollController.hasClients &&
+          _scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - 20) {
+        return totalSlides;
+      }
 
-    //! 2. SLIDE 1 INTRO FADE
+      if (_scrollOffset >= screenHeight * 1.8) {
+        final double scrollBeyondSlide2 = _scrollOffset - (screenHeight * 1.8);
+        final int dynamicSlide =
+            3 + (scrollBeyondSlide2 / (screenHeight * 0.7)).floor();
+        return dynamicSlide.clamp(3, totalSlides);
+      } else if (_scrollOffset >= screenHeight * 0.6) {
+        return 2;
+      } else {
+        return 1;
+      }
+    }
+
+    final int currentSlide = getCalculatedSlide();
+
+    // Timings
+    final double zoomProgress = (_scrollOffset / (screenHeight * 2.0)).clamp(
+      0.0,
+      1.0,
+    );
+    final double imageScale = 1.0 + (zoomProgress * 0.25);
+
     final double slide1TextOpacity =
-        (1.0 - (_scrollOffset / (screenHeight * 0.6))).clamp(0.0, 1.0);
+        (1.0 - (_scrollOffset / (screenHeight * 0.5))).clamp(0.0, 1.0);
 
-    //! 3. ACCELERATED UPWARD EXIT FOR SLIDE 2
-    final double slide2FadeIn =
+    final double slide2Opacity =
         ((_scrollOffset - (screenHeight * 0.3)) / (screenHeight * 0.5)).clamp(
           0.0,
           1.0,
         );
-    final double slide2FadeOut =
-        (1.0 - ((_scrollOffset - (screenHeight * 1.1)) / (screenHeight * 0.6)))
-            .clamp(0.0, 1.0);
-    final double slide2Opacity = _scrollOffset < (screenHeight * 1.1)
-        ? slide2FadeIn
-        : slide2FadeOut;
 
-    final double slide2ExitProgress =
-        ((_scrollOffset - (screenHeight * 0.9)) / (screenHeight * 0.8)).clamp(
-          0.0,
-          1.0,
-        );
-    final double slide2UpwardOffsetY =
-        -slide2ExitProgress * (screenHeight * 1.3);
-
-    //! 4. HERO IMAGE VERTICAL EXIT
-    final double exitDistance = (_scrollOffset - step2HeaderEnd).clamp(
+    final double exitDistance = (_scrollOffset - screenHeight).clamp(
       0.0,
       screenHeight,
     );
-    final double exitTopOffset = -exitDistance * 0.5;
-    final double exitOpacity = (1.0 - (exitDistance / (screenHeight * 0.7)))
-        .clamp(0.0, 1.0);
+    final double exitTopOffset = -exitDistance;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final isMobile = width < 600;
+        final effectiveMaxWidth = widget.maxWidth * 0.85;
 
         return Scaffold(
           backgroundColor: const Color(0xFF0D0E15),
@@ -124,203 +115,160 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
               const Positioned.fill(child: CosmosRiveBackground()),
 
               // ---------------------------------------------------------------
-              //? LAYER 2: HERO PROFILE IMAGE & OVERLAY HEADERS (SLIDES 1 & 2)
+              //? LAYER 2: MAGAZINE COVER HERO (SLIDES 1 & 2 FIXED OVERLAY)
               // ---------------------------------------------------------------
-              if (exitOpacity > 0.0)
-                Positioned(
-                  top: exitTopOffset,
-                  left: 0,
-                  right: 0,
-                  height: screenHeight,
-                  child: Opacity(
-                    opacity: exitOpacity,
-                    child: ClipRect(
-                      child: Stack(
-                        children: [
-                          //! Profile Image
-                          Positioned.fill(
-                            child: ShaderMask(
-                              shaderCallback: (rect) {
-                                return LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.black,
-                                    Colors.black.withOpacity(0.85),
-                                    Colors.transparent,
-                                  ],
-                                  stops: const [0.0, 0.7, 1.0],
-                                ).createShader(rect);
-                              },
-                              blendMode: BlendMode.dstIn,
-                              child: Transform.scale(
-                                scale: imageScale,
-                                child: Image.asset(
-                                  'assets/images/profile.png',
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.center,
-                                ),
-                              ),
+              Positioned(
+                top: exitTopOffset,
+                left: 0,
+                right: 0,
+                height: screenHeight,
+                child: ClipRect(
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ShaderMask(
+                          shaderCallback: (rect) {
+                            return LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.black,
+                                Colors.black.withOpacity(0.85),
+                                Colors.transparent,
+                              ],
+                              stops: const [0.0, 0.75, 1.0],
+                            ).createShader(rect);
+                          },
+                          blendMode: BlendMode.dstIn,
+                          //?------------BACKGROUND IMAGE------------//
+                          child: Transform.scale(
+                            scale: imageScale,
+                            child: Image.asset(
+                              'assets/background/dark_mode_profile.jpg',
+                              fit: BoxFit.cover,
+                              alignment: Alignment.center,
                             ),
                           ),
-
-                          // Contrast Overlay Vignette
-                          Positioned.fill(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Colors.black.withOpacity(0.65),
-                                    Colors.transparent,
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          //! Slide 1 Intro Badge Overlay
-                          if (slide1TextOpacity > 0.0)
-                            Positioned(
-                              top: 0,
-                              bottom: 0,
-                              left: isMobile ? 24 : 80,
-                              child: SafeArea(
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Opacity(
-                                    opacity: slide1TextOpacity,
-                                    child: HomeIntroBadge(isMobile: isMobile),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                          //! Slide 2 Header Overlay (Exits Upward)
-                          if (slide2Opacity > 0.0)
-                            Positioned.fill(
-                              child: SafeArea(
-                                child: Transform.translate(
-                                  offset: Offset(0.0, slide2UpwardOffsetY),
-                                  child: Opacity(
-                                    opacity: slide2Opacity,
-                                    child: const HomeHeroHeader(),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.black.withOpacity(0.65),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //! Execute Slide 1 Builder with parameters
+                      if (widget.slide1Intro != null && slide1TextOpacity > 0.0)
+                        Positioned(
+                          top: 0,
+                          bottom: 0,
+                          left: isMobile ? 24 : 80,
+                          child: SafeArea(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Opacity(
+                                opacity: slide1TextOpacity,
+                                child: widget.slide1Intro!(
+                                  isMobile,
+                                  effectiveMaxWidth,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      //! Execute Slide 2 Builder with parameters
+                      if (widget.slide2Header != null && slide2Opacity > 0.0)
+                        Positioned.fill(
+                          child: SafeArea(
+                            child: Center(
+                              child: Opacity(
+                                opacity: slide2Opacity,
+                                child: widget.slide2Header!(
+                                  isMobile,
+                                  effectiveMaxWidth,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
+              ),
 
               // ---------------------------------------------------------------
-              //? LAYER 3: MAIN SCROLL VIEW (SLIDES 3–6)
+              //? LAYER 3: MAIN CONTINUOUS SCROLL PIPELINE
               // ---------------------------------------------------------------
               SingleChildScrollView(
                 controller: _scrollController,
                 child: Column(
                   children: [
-                    SizedBox(height: step2HeaderEnd),
+                    SizedBox(height: screenHeight * 2.0),
 
-                    // =========================================================
-                    //? SLIDE 3: TECHNICAL SKILLS & EXPERTISE
-                    // =========================================================
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 40,
-                      ),
-                      child: Center(
-                        child: HomeSkillsCard(
-                          isMobile: isMobile,
-                          maxWidth: widget.maxWidth * 0.85,
-                        ),
-                      ),
-                    ),
-
-                    // =========================================================
-                    //? SLIDE 4: WORK EXPERIENCE (PSBank, Quantrics, Trent)
-                    // =========================================================
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 40,
-                      ),
-                      child: Center(
-                        child: HomeExperienceCard(
-                          isMobile: isMobile,
-                          maxWidth: widget.maxWidth * 0.85,
-                        ),
-                      ),
-                    ),
-
-                    // =========================================================
-                    //? SLIDE 5: FEATURED PROJECTS, EDUCATION & CERTIFICATIONS
-                    // =========================================================
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 40,
-                      ),
-                      child: Center(
-                        child: HomeProjectsEducationBadge(
-                          isMobile: isMobile,
-                          maxWidth: widget.maxWidth * 0.85,
-                        ),
-                      ),
-                    ),
-
-                    // =========================================================
-                    //? SLIDE 6: CUSTOM PORTFOLIO & BODY WIDGET
-                    // =========================================================
-                    SizedBox(
-                      height: screenHeight,
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          SafeArea(
-                            child: SectionBadgeTag(AppStrings.slide8Badge),
+                    Center(
+                      child: Container(
+                        width: effectiveMaxWidth,
+                        height: 2,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              const Color(0xFF6C5CE7),
+                              Colors.white,
+                              const Color(0xFF6C5CE7),
+                              Colors.transparent,
+                            ],
+                            stops: const [0.0, 0.25, 0.5, 0.75, 1.0],
                           ),
-                          Expanded(
-                            child: Center(
-                              child: SingleChildScrollView(
-                                physics: const BouncingScrollPhysics(),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 20,
-                                  ),
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxWidth: widget.maxWidth,
-                                    ),
-                                    child: LayoutHelpers.resolveBodyLayout(
-                                      width: width,
-                                      mobile: widget.mobile,
-                                      desktop: widget.desktop,
-                                      children: widget.children,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF6C5CE7).withOpacity(0.9),
+                              blurRadius: 10,
+                              spreadRadius: 1,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
+
+                    const SizedBox(height: 20),
+
+                    // =========================================================
+                    //? EXECUTE EACH SLIDE BUILDER WITH DYNAMIC PARAMS
+                    // =========================================================
+                    ...widget.slideBuilders.map((builder) {
+                      return Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 30,
+                        ),
+                        child: Center(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: effectiveMaxWidth,
+                            ),
+                            child: builder(isMobile, effectiveMaxWidth),
+                          ),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),
 
               // ---------------------------------------------------------------
-              //? LAYER 4: SIDE SCROLLBAR INDICATOR (6 SLIDES)
+              //? LAYER 4: DYNAMIC SIDE SCROLLBAR INDICATOR
               // ---------------------------------------------------------------
               Positioned(
                 right: 16,
@@ -339,7 +287,7 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: List.generate(6, (index) {
+                      children: List.generate(totalSlides, (index) {
                         final slideNum = index + 1;
                         final isActive = currentSlide == slideNum;
 
@@ -382,7 +330,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
               ),
             ],
           ),
-
           drawer: isMobile && widget.actions != null
               ? Drawer(
                   backgroundColor: const Color(0xFF141622),
