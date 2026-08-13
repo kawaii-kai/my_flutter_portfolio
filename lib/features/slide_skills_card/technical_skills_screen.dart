@@ -17,7 +17,6 @@ class TechnicakSkillsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late SkillsModel skillsModel = SkillsModel();
     // Responsive grid column count optimized for mobile screens (like Galaxy phones) up to large desktops
     // int crossAxisCount;
     // if (isMobile) {
