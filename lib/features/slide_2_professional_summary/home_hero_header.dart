@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/config/theme/string_manager.dart';
+import 'package:my_portfolio/features/slide_2_professional_summary/layout_metric_pill.dart';
 
 class HomeHeroHeader extends StatelessWidget {
   const HomeHeroHeader({super.key});
@@ -71,11 +72,11 @@ class HomeHeroHeader extends StatelessWidget {
                 spacing: 12,
                 runSpacing: 10,
                 children: [
-                  _buildMetricPill("3+ Years Experience", Icons.timer_outlined),
-                  _buildMetricPill("10+ APIs Integrated", Icons.api_outlined),
-                  _buildMetricPill(
-                    "10+ Packages Refactored",
-                    Icons.build_outlined,
+                  LayoutMetricPill(label: "3+ Years Experience", icon: Icons.timer_outlined),
+                  LayoutMetricPill(label: "10+ APIs Integrated", icon: Icons.api_outlined),
+                  LayoutMetricPill(
+                    label: "10+ Packages Refactored",
+                    icon: Icons.build_outlined,
                   ),
                 ],
               ),
@@ -253,29 +254,5 @@ class HomeHeroHeader extends StatelessWidget {
   }
 
   // Helper widget for Impact Metric Pills
-  Widget _buildMetricPill(String label, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.06),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.white.withOpacity(0.12)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: const Color(0xFF6C5CE7)),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 }
