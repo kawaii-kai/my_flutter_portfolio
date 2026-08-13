@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/config/theme/color_manager.dart';
+import 'package:my_portfolio/features/slide_skills_card/front_end/front_end_skills_card.dart';
+import 'package:my_portfolio/features/slide_skills_card/ide/ide_tooling_skills_card.dart';
 import 'package:my_portfolio/features/slide_skills_card/mobile/mobile_skills_card.dart';
-import 'package:my_portfolio/features/slide_skills_card/skill_model.dart';
 
 class TechnicakSkillsScreen extends StatelessWidget {
   final double maxWidth;
@@ -90,8 +91,9 @@ class TechnicakSkillsScreen extends StatelessWidget {
               const SizedBox(height: 24),
               //? CARDS
               MobileSkillsCards(maxWidth: maxWidth, isMobile: isMobile),
-               Text(
-                'IDEs & Development Tooling',
+              const SizedBox(height: 24),
+              Text(
+                'Front-End | Back-End'.toUpperCase(),
                 style: GoogleFonts.spaceGrotesk(
                   color: ColorManager.astralGold,
                   fontWeight: FontWeight.bold,
@@ -99,6 +101,26 @@ class TechnicakSkillsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
+              FrontEndSkillsCard(maxWidth: maxWidth, isMobile: isMobile),
+              const SizedBox(height: 24),
+              Text(
+                'IDEs & Development Tooling'.toUpperCase(),
+                style: GoogleFonts.spaceGrotesk(
+                  color: ColorManager.astralGold,
+                  fontWeight: FontWeight.bold,
+                  fontSize: isMobile ? 12 : 14,
+                ),
+              ),
+              const SizedBox(height: 24),
+              IDEToolingSkillsCard(maxWidth: maxWidth, isMobile: isMobile),
+                Text(
+                'Design & Prototyping'.toUpperCase(),
+                style: GoogleFonts.spaceGrotesk(
+                  color: ColorManager.astralGold,
+                  fontWeight: FontWeight.bold,
+                  fontSize: isMobile ? 12 : 14,
+                ),
+              ),
             ],
           ),
         ),
