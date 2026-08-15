@@ -1,4 +1,4 @@
-class FrontEndModel {
+class FrontBackDatabaseModel {
   final List<Map<String, String>> skills = [
     {
       'name': 'HTML',
@@ -36,16 +36,12 @@ class FrontEndModel {
       'level': 'Beginner',
       'icon': 'assets/images/tailwindcss-original.svg',
     },
-     {
+    {
       'name': 'MySQL',
       'level': 'Intermediate',
       'icon': 'assets/images/mysql-original.svg',
     },
 
-    {
-      'name': 'SQL',
-      'level': 'Intermediate',
-      'icon': 'assets/images/sql.svg',
-    },
+    {'name': 'SQL', 'level': 'Intermediate', 'icon': 'assets/images/sql.svg'},
   ];
 }
