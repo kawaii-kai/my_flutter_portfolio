@@ -46,6 +46,12 @@ class IDEToolingModel {
       'level': 'Beginner',
       'icon': 'assets/images/docker-original.svg',
     },
+     {
+      'name': 'Linux',
+      'level': 'Beginner',
+      'icon': 'assets/images/linux-original.svg',
+    },
+
     {'name': 'AWS', 'level': 'Familiar', 'icon': 'assets/images/aws.svg'},
     {
       'name': 'Jira',
