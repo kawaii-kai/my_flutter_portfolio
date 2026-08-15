@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/features/slide_skills_card/hover_style.dart';
+import 'package:my_portfolio/core/presentation/layout/hover_style.dart';
 import 'package:my_portfolio/features/slide_skills_card/ide/ide_tooling_model.dart';
 
 class IDEToolingSkillsCard extends StatelessWidget {
