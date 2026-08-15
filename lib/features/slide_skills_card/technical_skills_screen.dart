@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/config/theme/color_manager.dart';
-import 'package:my_portfolio/features/slide_skills_card/front_end/front_end_skills_card.dart';
+import 'package:my_portfolio/features/slide_skills_card/ai_tools/ai_tools_card.dart';
+import 'package:my_portfolio/features/slide_skills_card/design_prototyping/design_prototyping_card.dart';
+import 'package:my_portfolio/features/slide_skills_card/front_back_database/front_back_database_card.dart';
 import 'package:my_portfolio/features/slide_skills_card/ide/ide_tooling_skills_card.dart';
 import 'package:my_portfolio/features/slide_skills_card/mobile/mobile_skills_card.dart';
 
@@ -17,26 +19,6 @@ class TechnicakSkillsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Responsive grid column count optimized for mobile screens (like Galaxy phones) up to large desktops
-    // int crossAxisCount;
-    // if (isMobile) {
-    //   crossAxisCount = 2; // Perfect 2-column layout for mobile / Galaxy screens
-    // } else if (maxWidth  // Color _getLevelColor(String level) {
-    //   switch (level) {
-    //     case 'Proficient':
-    //       return ColorManager.astralGold;
-    //     case 'Advanced':
-    //       return ColorManager.astralSilver;
-    //     default:
-    //       return ColorManager.astralBlue; // Default color for unknown levels
-    //   }
-    // }< 900) {
-    //   crossAxisCount = 3;
-    // } else if (maxWidth < 1200) {
-    //   crossAxisCount = 4
-    // } else {
-    //   crossAxisCount = 6;
-    // }
     int crossAxisCount = isMobile ? 3 : 7;
 
     return Center(
@@ -63,6 +45,7 @@ class TechnicakSkillsScreen extends StatelessWidget {
               // Header Title
               Row(
                 children: [
+                  const SizedBox(height: 24),
                   Expanded(
                     child: Text(
                       'Technical Skills and Tools',
@@ -92,7 +75,7 @@ class TechnicakSkillsScreen extends StatelessWidget {
               MobileSkillsCards(maxWidth: maxWidth, isMobile: isMobile),
               const SizedBox(height: 24),
               Text(
-                'Front-End | Back-End'.toUpperCase(),
+                'Front-End | Back-End | Databases'.toUpperCase(),
                 style: GoogleFonts.spaceGrotesk(
                   color: ColorManager.astralGold,
                   fontWeight: FontWeight.bold,
@@ -100,10 +83,10 @@ class TechnicakSkillsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              FrontEndSkillsCard(maxWidth: maxWidth, isMobile: isMobile),
+              FrontBackDatabaseCard(maxWidth: maxWidth, isMobile: isMobile),
               const SizedBox(height: 24),
               Text(
-                'IDEs & Development Tooling'.toUpperCase(),
+                'IDEs | CI/CD | DevOps | Project Management'.toUpperCase(),
                 style: GoogleFonts.spaceGrotesk(
                   color: ColorManager.astralGold,
                   fontWeight: FontWeight.bold,
@@ -112,7 +95,8 @@ class TechnicakSkillsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               IDEToolingSkillsCard(maxWidth: maxWidth, isMobile: isMobile),
-                Text(
+              const SizedBox(height: 24),
+              Text(
                 'Design & Prototyping'.toUpperCase(),
                 style: GoogleFonts.spaceGrotesk(
                   color: ColorManager.astralGold,
@@ -120,6 +104,19 @@ class TechnicakSkillsScreen extends StatelessWidget {
                   fontSize: isMobile ? 12 : 14,
                 ),
               ),
+              const SizedBox(height: 24),
+              DesignPrototypingCard(maxWidth: maxWidth, isMobile: isMobile),
+              const SizedBox(height: 24),
+              Text(
+                'Productivity & AI Tools'.toUpperCase(),
+                style: GoogleFonts.spaceGrotesk(
+                  color: ColorManager.astralGold,
+                  fontWeight: FontWeight.bold,
+                  fontSize: isMobile ? 12 : 14,
+                ),
+              ),
+              const SizedBox(height: 24),
+              AIToolsCard(maxWidth: maxWidth, isMobile: isMobile),
             ],
           ),
         ),
