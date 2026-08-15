@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio/features/home/presentation/widgets/responsive_screen_shell.dart';
 import 'package:my_portfolio/features/slide_1_home_intro/home_intro_badge.dart';
 import 'package:my_portfolio/features/slide_2_professional_summary/home_hero_header.dart';
-import 'package:my_portfolio/features/slide_3_technical_skills/home_skills_card.dart';
 import 'package:my_portfolio/features/slide_4_work_experience/home_experience_card.dart';
 import 'package:my_portfolio/features/slide_5_projects/home_projects_education_badge.dart';
 import 'package:my_portfolio/features/slide_6_device_social/social_service_dashboard.dart';
@@ -40,9 +39,9 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         (isMobile, maxWidth) =>
             HomeExperienceCard(isMobile: isMobile, maxWidth: maxWidth),
 
-        //? Slide 4
-        (isMobile, maxWidth) =>
-            HomeSkillsCard(isMobile: isMobile, maxWidth: maxWidth),
+        // //? Slide 4
+        // (isMobile, maxWidth) =>
+        //     HomeSkillsCard(isMobile: isMobile, maxWidth: maxWidth),
 
         //? Slide 5
         (isMobile, maxWidth) =>
