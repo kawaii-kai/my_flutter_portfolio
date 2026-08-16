@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/core/presentation/layout/hover_style.dart';
-import 'package:my_portfolio/features/slide_skills_card/ide/ide_tooling_model.dart';
 
-class IDEToolingSkillsCard extends StatelessWidget {
+class CustomSkillsCard<T> extends StatelessWidget {
   final double maxWidth;
+  final T model;
   final bool isMobile;
-  const IDEToolingSkillsCard({
+
+  const CustomSkillsCard({
     super.key,
+    required this.model,
     required this.maxWidth,
     required this.isMobile,
   });
-
   @override
   Widget build(BuildContext context) {
-    late IDEToolingModel skillsModel = IDEToolingModel();
+    final skillsList = (model as dynamic).skills ?? [];
     int crossAxisCount = isMobile ? 3 : 7;
 
     return GridView.builder(
@@ -25,17 +26,14 @@ class IDEToolingSkillsCard extends StatelessWidget {
         mainAxisSpacing: isMobile ? 12 : 16,
         childAspectRatio: isMobile ? 1.0 : 1.1,
       ),
-      itemCount: skillsModel.skills.length,
+      itemCount: skillsList.length,
       itemBuilder: (context, index) {
-        final skill = skillsModel.skills[index];
-        final bool isSelected = index == false; // Example active item
-        // final Color levelColor = _getLevelColor(skill['level']!);
-
+        final skill = skillsList[index];
+        final bool isSelected = index == false;
         return HoverStyle(
           skill: skill,
           isSelected: isSelected,
           isMobile: isMobile,
-          // levelColor: levelColor,
         );
       },
     );
