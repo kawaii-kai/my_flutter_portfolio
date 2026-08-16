@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/config/theme/color_manager.dart';
 import 'package:my_portfolio/config/theme/string_manager.dart';
-import 'package:my_portfolio/core/presentation/custom/section_badge_tag.dart';
 import 'package:my_portfolio/features/slide_5_projects/section_header.dart';
 import 'package:my_portfolio/features/slide_4_work_experience/home_experience_item.dart';
 
@@ -27,7 +27,7 @@ class HomeExperienceCard extends StatelessWidget {
         border: Border.all(color: Colors.white.withOpacity(0.15), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.6),
+            color: ColorManager.lightPurple,
             blurRadius: 24,
             offset: const Offset(0, 12),
           ),
@@ -36,7 +36,6 @@ class HomeExperienceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionBadgeTag('SLIDE 4 • PROFESSIONAL EXPERIENCE'),
           const SizedBox(height: 24),
           SectionHeader(icon: Icons.work_outline, title: AppStrings.expTitle),
           const SizedBox(height: 20),
@@ -68,6 +67,15 @@ class HomeExperienceCard extends StatelessWidget {
             period: AppStrings.expTrentPeriod,
             subRole: null,
             points: AppStrings.expTrentPoints,
+          ),
+          // 4. Internship
+          const SizedBox(height: 20),
+          HomeExperienceItem(
+            role: AppStrings.expEroRole,
+            company: AppStrings.expEroCompany,
+            period: AppStrings.expEroPeriod,
+            subRole: null,
+            points: AppStrings.expEroPoints,
           ),
         ],
       ),
