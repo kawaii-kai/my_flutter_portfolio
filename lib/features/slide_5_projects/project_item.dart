@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProjectItem extends StatelessWidget {
   final String title;
@@ -25,7 +26,7 @@ class ProjectItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: GoogleFonts.spaceGrotesk(
               color: Colors.white,
               fontSize: 15,
               fontWeight: FontWeight.bold,
@@ -34,7 +35,7 @@ class ProjectItem extends StatelessWidget {
           const SizedBox(height: 3),
           Text(
             techStack,
-            style: const TextStyle(
+            style: GoogleFonts.spaceGrotesk(
               color: Color(0xFF6C5CE7),
               fontSize: 11.5,
               fontWeight: FontWeight.w600,
@@ -43,7 +44,7 @@ class ProjectItem extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             description,
-            style: TextStyle(
+            style: GoogleFonts.spaceGrotesk(
               color: Colors.white.withOpacity(0.85),
               fontSize: 12.5,
               height: 1.4,

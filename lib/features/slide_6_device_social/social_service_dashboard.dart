@@ -1,6 +1,6 @@
-// lib/features/home/presentation/widgets/social_device_dashboard.dart
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/config/theme/color_manager.dart';
 import 'package:my_portfolio/config/theme/font_manager.dart';
 
@@ -35,9 +35,8 @@ class SocialDeviceDashboard extends StatelessWidget {
                   const SizedBox(height: 12),
                   Text(
                     'Kyla Baliao',
-                    style: TextStyle(
+                    style: GoogleFonts.spaceGrotesk(
                       color: Colors.white,
-                      fontFamily: FontManager.fontFamily,
                       fontSize: FontSize.s18,
                       fontWeight: FontWeightManager.bold,
                     ),
@@ -45,9 +44,8 @@ class SocialDeviceDashboard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     'Mobile Developer • Flutter & iOS',
-                    style: TextStyle(
+                    style: GoogleFonts.spaceGrotesk(
                       color: Colors.white70,
-                      fontFamily: FontManager.fontFamily,
                       fontSize: FontSize.s12,
                     ),
                   ),
@@ -127,20 +125,20 @@ class SocialDeviceDashboard extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(
+            style: GoogleFonts.spaceGrotesk(
               color: Colors.white,
-              fontFamily: FontManager.fontFamily,
               fontWeight: FontWeightManager.medium,
               fontSize: FontSize.s14,
             ),
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(
-              color: Colors.white54,
-              fontFamily: FontManager.fontFamily,
+            style: 
+            GoogleFonts.spaceGrotesk(
+               color: Colors.white54,
               fontSize: FontSize.s12,
             ),
+ 
           ),
           trailing: const Icon(
             Icons.arrow_forward_ios,

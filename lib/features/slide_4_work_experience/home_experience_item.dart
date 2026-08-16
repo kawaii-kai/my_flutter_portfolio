@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeExperienceItem extends StatelessWidget {
   final String role;
@@ -26,7 +27,7 @@ class HomeExperienceItem extends StatelessWidget {
             Expanded(
               child: Text(
                 role,
-                style: const TextStyle(
+                style: GoogleFonts.spaceGrotesk(
                   color: Colors.white,
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -35,7 +36,7 @@ class HomeExperienceItem extends StatelessWidget {
             ),
             Text(
               period,
-              style: const TextStyle(
+              style: GoogleFonts.spaceGrotesk(
                 color: Color(0xFF6C5CE7),
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
@@ -46,7 +47,7 @@ class HomeExperienceItem extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           company,
-          style: const TextStyle(
+          style: GoogleFonts.spaceGrotesk(
             color: Color(0xFF6C5CE7),
             fontSize: 13.5,
             fontWeight: FontWeight.w600,
@@ -56,7 +57,7 @@ class HomeExperienceItem extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             subRole!,
-            style: TextStyle(
+            style: GoogleFonts.spaceGrotesk(
               color: Colors.white.withOpacity(0.6),
               fontSize: 12,
               fontStyle: FontStyle.italic,
@@ -72,9 +73,9 @@ class HomeExperienceItem extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     '• ',
-                    style: TextStyle(
+                    style: GoogleFonts.spaceGrotesk(
                       color: Color(0xFF6C5CE7),
                       fontWeight: FontWeight.bold,
                     ),
@@ -82,7 +83,7 @@ class HomeExperienceItem extends StatelessWidget {
                   Expanded(
                     child: Text(
                       p,
-                      style: TextStyle(
+                      style: GoogleFonts.spaceGrotesk(
                         color: Colors.white.withOpacity(0.85),
                         fontSize: 12.5,
                         height: 1.35,

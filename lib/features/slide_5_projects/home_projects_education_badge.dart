@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:my_portfolio/config/theme/color_manager.dart';
 import 'package:my_portfolio/config/theme/string_manager.dart';
 import 'package:my_portfolio/features/slide_5_projects/info_chip.dart';
 import 'package:my_portfolio/features/slide_5_projects/project_item.dart';
 import 'package:my_portfolio/core/presentation/layout/seamless_divider.dart';
-import 'package:my_portfolio/core/presentation/custom/section_badge_tag.dart';
 import 'package:my_portfolio/features/slide_5_projects/section_header.dart';
 
 class HomeProjectsEducationBadge extends StatelessWidget {
@@ -29,7 +30,7 @@ class HomeProjectsEducationBadge extends StatelessWidget {
         border: Border.all(color: Colors.white.withOpacity(0.15), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.6),
+            color: ColorManager.lightPurple,
             blurRadius: 24,
             offset: const Offset(0, 12),
           ),
@@ -38,7 +39,6 @@ class HomeProjectsEducationBadge extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionBadgeTag('SLIDE 5 • PROJECTS, EDUCATION & CERTS'),
           const SizedBox(height: 24),
           SectionHeader(
             icon: Icons.folder_special_outlined,
@@ -67,7 +67,7 @@ class HomeProjectsEducationBadge extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             AppStrings.eduDegree,
-            style: const TextStyle(
+            style: GoogleFonts.spaceGrotesk(
               color: Colors.white,
               fontSize: 15,
               fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class HomeProjectsEducationBadge extends StatelessWidget {
           ),
           Text(
             AppStrings.eduSchool,
-            style: TextStyle(
+            style: GoogleFonts.spaceGrotesk(
               color: Colors.white.withOpacity(0.8),
               fontSize: 13,
             ),
