@@ -45,6 +45,8 @@ dependencies:
   device_frame: ^1.4.0
   flutter_animate: ^4.5.2
   rive: ^0.13.20
+  flutter_svg: ^2.0.10
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -71,9 +73,57 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/rive/circuits-parallax-background.riv
+    #Rive Assets
     - assets/rive/cosmos.riv
+    #Background
     - assets/images/profile.png
+    - assets/background/dark_mode_profile.jpg
+    - assets/background/light_mode_profile.png
+    - assets/background/light_mode_yellow_profile.jpg
+    - assets/background/light_mode_small_profile.png
+    #Image Assets
+    - assets/images/android-original.svg
+    - assets/images/androidstudio-original.svg
+    - assets/images/aws.svg
+    - assets/images/bloc.svg
+    - assets/images/bootstrap-original.svg
+    - assets/images/canva-original.svg
+    - assets/images/chatgpt.svg
+    - assets/images/confluence-original.svg
+    - assets/images/css3-original.svg
+    - assets/images/dart-original.svg
+    - assets/images/docker-original.svg
+    - assets/images/eclipse-original.svg
+    - assets/images/facebook-original.svg
+    - assets/images/figma-original.svg
+    - assets/images/flutter-original.svg
+    - assets/images/gemini.svg
+    - assets/images/git-original.svg
+    - assets/images/github-original.svg
+    - assets/images/google-original.svg
+    - assets/images/homebrew-original.svg
+    - assets/images/ios_logo.svg
+    - assets/images/html5-original.svg
+    - assets/images/java-original.svg
+    - assets/images/javascript-plain.svg
+    - assets/images/jenkins-original.svg
+    - assets/images/jira-original.svg
+    - assets/images/kotlin-original.svg
+    - assets/images/linkedin-original.svg
+    - assets/images/linux-original.svg
+    - assets/images/mysql-original.svg
+    - assets/images/npm-original.svg
+    - assets/images/objective-c.svg
+    - assets/images/postman-original.svg
+    - assets/images/react-original.svg
+    - assets/images/rive.svg
+    - assets/images/sql.svg
+    - assets/images/stackoverflow-original.svg
+    - assets/images/swift-original.svg
+    - assets/images/tailwindcss-original.svg
+    - assets/images/twitter-original.svg
+    - assets/images/vscode-original.svg
+    - assets/images/xcode-original.svg
 
   #   - images/a_dot_ham.jpeg
 
