@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:my_portfolio/config/theme/color_manager.dart';
 import 'package:my_portfolio/config/theme/string_manager.dart';
-import 'package:my_portfolio/features/slide_2_professional_summary/layout_metric_pill.dart';
+import 'package:my_portfolio/features/professional_summary/layout_metric_pill.dart';
 
 class HomeHeroHeader extends StatelessWidget {
   const HomeHeroHeader({super.key});
@@ -19,38 +21,14 @@ class HomeHeroHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // INTRO BADGE CHIP
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF6C5CE7).withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: const Color(0xFF6C5CE7).withOpacity(0.5),
-                  ),
-                ),
-                child: const Text(
-                  AppStrings.slide3Badge,
-                  style: TextStyle(
-                    color: Color(0xFF6C5CE7),
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-
               // SUBTITLE / SPECIALIZATION
               Text(
                 AppStrings.heroSubtitle,
-                style: TextStyle(
+                style: GoogleFonts.spaceGrotesk(
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                   fontSize: isMobile ? 20 : 26,
-                  fontWeight: FontWeight.w800,
+
                   height: 1.3,
                   shadows: [
                     Shadow(
@@ -72,8 +50,14 @@ class HomeHeroHeader extends StatelessWidget {
                 spacing: 12,
                 runSpacing: 10,
                 children: [
-                  LayoutMetricPill(label: "3+ Years Experience", icon: Icons.timer_outlined),
-                  LayoutMetricPill(label: "10+ APIs Integrated", icon: Icons.api_outlined),
+                  LayoutMetricPill(
+                    label: "3+ Years Experience",
+                    icon: Icons.timer_outlined,
+                  ),
+                  LayoutMetricPill(
+                    label: "10+ APIs Integrated",
+                    icon: Icons.api_outlined,
+                  ),
                   LayoutMetricPill(
                     label: "10+ Packages Refactored",
                     icon: Icons.build_outlined,
@@ -92,9 +76,9 @@ class HomeHeroHeader extends StatelessWidget {
                   border: Border.all(color: Colors.white.withOpacity(0.12)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.4),
-                      blurRadius: 16,
-                      offset: const Offset(0, 8),
+                      color: ColorManager.lightPurple,
+                      blurRadius: 24,
+                      offset: const Offset(0, 12),
                     ),
                   ],
                 ),
@@ -111,7 +95,7 @@ class HomeHeroHeader extends StatelessWidget {
                         const SizedBox(width: 8),
                         Text(
                           AppStrings.summaryTitle.toUpperCase(),
-                          style: const TextStyle(
+                          style: GoogleFonts.spaceGrotesk(
                             color: Color(0xFF6C5CE7),
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
@@ -123,7 +107,7 @@ class HomeHeroHeader extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text(
                       AppStrings.summaryParagraph1,
-                      style: TextStyle(
+                      style: GoogleFonts.spaceGrotesk(
                         color: Colors.white.withOpacity(0.85),
                         fontSize: 13.5,
                         height: 1.45,
@@ -132,7 +116,7 @@ class HomeHeroHeader extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text(
                       AppStrings.summaryParagraph2,
-                      style: TextStyle(
+                      style: GoogleFonts.spaceGrotesk(
                         color: Colors.white.withOpacity(0.85),
                         fontSize: 13.5,
                         height: 1.45,
@@ -162,9 +146,9 @@ class HomeHeroHeader extends StatelessWidget {
                       ),
                       elevation: 4,
                     ),
-                    child: const Text(
+                    child: Text(
                       AppStrings.btnDownloadCv,
-                      style: TextStyle(
+                      style: GoogleFonts.spaceGrotesk(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),
@@ -186,9 +170,9 @@ class HomeHeroHeader extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       AppStrings.btnContactMe,
-                      style: TextStyle(
+                      style: GoogleFonts.spaceGrotesk(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),
@@ -240,7 +224,7 @@ class HomeHeroHeader extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 tech,
-                style: const TextStyle(
+                style: GoogleFonts.spaceGrotesk(
                   color: Colors.white,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -254,5 +238,4 @@ class HomeHeroHeader extends StatelessWidget {
   }
 
   // Helper widget for Impact Metric Pills
-
 }
