@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/config/theme/color_manager.dart';
-import 'package:my_portfolio/features/slide_skills_card/models/ai_tools_model.dart';
+import 'package:my_portfolio/features/slide_skills_card/ai_tools/ai_tools_model.dart';
 import 'package:my_portfolio/features/slide_skills_card/custom_skills_card.dart';
 import 'package:my_portfolio/features/slide_skills_card/models/design_prototyping_model.dart';
 import 'package:my_portfolio/features/slide_skills_card/models/front_back_database_model.dart';
