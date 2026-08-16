@@ -2,15 +2,6 @@ abstract class AppStrings {
   // Navigation & Badges
   static const String introBody =
       'Scroll down to explore my journey, tech stack, and experience.';
-  static const String slide1Badge = 'SLIDE 1 • INTRO';
-  static const String slide3Badge = 'SLIDE 2 • SUMMARY';
-  static const String slide4Badge = 'SLIDE 4 • TECHNICAL SKILLS';
-  static const String slide5Badge = 'SLIDE 5 • WORK EXPERIENCE';
-  static const String slide6Badge = 'SLIDE 6 • FEATURED PROJECTS';
-  static const String slide7Badge = 'SLIDE 7 • EDUCATION & CERTIFICATIONS';
-  static const String slide8Badge = 'SLIDE 8 • SOCIAL LINKS & CONTACT';
-  static const String combinedExperienceBadge =
-      'SLIDES 3–5 • CAREER & EXPERTISE SUMMARY';
 
   // Personal Header Information
   static const String fullName = 'KYLA BALIAO';
@@ -39,27 +30,6 @@ abstract class AppStrings {
       'Mobile Developer with 3+ years of experience building and maintaining production-grade cross-platform mobile applications for Android and iOS within a regulated banking environment. Proficient in Dart/Flutter, Kotlin, MVVM and BLoC architecture, and RESTful API integration. Experienced in full-cycle mobile development, including UI implementation, API integration, build configuration, dependency management, performance optimization, and application security enhancements.';
   static const String summaryParagraph2 =
       'Hands-on experience delivering enterprise mobile solutions, resolving complex production issues, improving application stability, and ensuring reliable releases under tight deadlines. Experienced in application analysis, troubleshooting, and security-related improvements, including Frida detection implementation and debugging techniques. Proven ability to reduce technical challenges, improve development workflows, and contribute to high-quality production releases.';
-
-  // Technical Skills
-  static const String skillsTitle = 'Technical Skills';
-  static const String skillMobileDev =
-      'Flutter, Dart, Kotlin, Java, Swift, Android SDK, iOS SDK, cross-platform development';
-  static const String skillFlutter =
-      'BLoC, MVVM, Clean Architecture, Responsive UI, Reusable Widgets, Navigation, Flutter Flavors, Plugin Integration';
-  static const String skillApiBackend =
-      'RESTful APIs, Dio, JSON Parsing, Authentication Flow, Error Handling';
-  static const String skillAndroidDev =
-      'Android SDK, Activity/Fragment Lifecycle, Gradle, Kotlin DSL, Android API Level Updates, Play Store Requirements, Performance Optimization';
-  static const String skillIosDev =
-      'Swift, SwiftUI, Xcode, CocoaPods, Podfile configuration, IPA Builds, Ad Hoc Distribution, TestFlight, Signing Configuration, Flutter iOS platform setup, framework linking, build troubleshooting';
-  static const String skillBuildDevOps =
-      'Android Gradle Plugin (AGP), ProGuard/R8, Flutter package/plugin management, Jenkins CI/CD, Git (branching, merging, pull requests)';
-  static const String skillSecurity =
-      'Frida detection, Application Analysis, Crash Investigation, Root Cause Analysis, Performance Profiling, reverse engineering mitigation, security testing';
-  static const String skillTooling =
-      'Android Studio, Xcode, VS Code, Charles Proxy, Jira, Confluence, Figma';
-  static const String skillAdditional = 'SQL, React, Node.js, C#, Linux/UNIX';
-
   // Work Experience
   static const String expTitle = 'Work Experience';
 
@@ -106,6 +76,16 @@ abstract class AppStrings {
     'Delivered IT courses to students, developed lesson plans aligned to curriculum objectives, and provided individual technical mentoring.',
   ];
 
+  // 3. Intern
+  static const String expEroRole = 'Web Developer Intern';
+  static const String expEroCompany =
+      'Erovoutika Robotics and Automation Solution';
+  static const String expEroPeriod = 'February 2023 – May 2023';
+  static const List<String> expEroPoints = [
+    'Led the development of an e-commerce platform specializing in robotics parts and electronic components.',
+    'Built and optimized responsive user interfaces using HTML, CSS, JavaScript and Bootstrap integrated with secure PHP and MYSQL backend for product and inventory management.',
+    ' Hosted interactive Facebook Live sessions for beginners, focusing on building websites and developing native android mobile applications.',
+  ];
   // Projects
   static const String projectsTitle = 'Featured Projects';
 
