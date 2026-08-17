@@ -7,7 +7,7 @@ typedef SlideBuilder = Widget Function(bool isMobile, double maxWidth);
 class ResponsiveScreenShell extends StatefulWidget {
   final SlideBuilder? slide1Intro;
   final SlideBuilder? slide2Header;
-  final List<SlideBuilder> slideBuilders; 
+  final List<SlideBuilder> slideBuilders;
 
   final String? title;
   final List<Widget>? actions;
@@ -52,27 +52,43 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     // =========================================================================
-    //? DYNAMIC SLIDE COUNT & ACCURATE INDICATOR CALCULATION
+    //? FULLY DYNAMIC TOTAL SLIDES CALCULATION
     // =========================================================================
-    final int totalSlides = 2 + widget.slideBuilders.length;
+    // 1 (Intro) + 1 (Header) + number of dynamic slide builders
+    final int totalSlides =
+        (widget.slide1Intro != null ? 1 : 0) +
+        (widget.slide2Header != null ? 1 : 0) +
+        widget.slideBuilders.length;
 
     int getCalculatedSlide() {
-      if (_scrollController.hasClients &&
-          _scrollController.position.pixels >=
-              _scrollController.position.maxScrollExtent - 20) {
+      if (!_scrollController.hasClients || totalSlides <= 0) return 1;
+
+      // Check if scrolled near the bottom
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 20) {
         return totalSlides;
       }
 
-      if (_scrollOffset >= screenHeight * 1.8) {
-        final double scrollBeyondSlide2 = _scrollOffset - (screenHeight * 1.8);
-        final int dynamicSlide =
-            3 + (scrollBeyondSlide2 / (screenHeight * 0.7)).floor();
-        return dynamicSlide.clamp(3, totalSlides);
-      } else if (_scrollOffset >= screenHeight * 0.6) {
-        return 2;
-      } else {
-        return 1;
-      }
+      // Map scroll offset smoothly across total active slides
+      // screenHeight * 2.0 covers the fixed hero scroll phase,
+      // after which each subsequent slide consumes a fraction of screen height.
+      const double heroPhaseExtent =
+          2.0; // 2 full screens for hero/intro transitions
+      final double scrollableHeight =
+          _scrollController.position.maxScrollExtent;
+
+      if (scrollableHeight <= 0) return 1;
+
+      // Calculate relative position ratio [0.0 to 1.0] across the scroll view
+      final double progress = (_scrollOffset / scrollableHeight).clamp(
+        0.0,
+        1.0,
+      );
+
+      // Map progress directly to the total number of slides dynamically
+      final int computedSlide = (progress * totalSlides).floor() + 1;
+
+      return computedSlide.clamp(1, totalSlides);
     }
 
     final int currentSlide = getCalculatedSlide();
@@ -140,7 +156,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                             ).createShader(rect);
                           },
                           blendMode: BlendMode.dstIn,
-                          //?------------BACKGROUND IMAGE------------//
                           child: Transform.scale(
                             scale: imageScale,
                             child: Image.asset(
@@ -166,7 +181,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                         ),
                       ),
 
-                      //! Execute Slide 1 Builder with parameters
                       if (widget.slide1Intro != null && slide1TextOpacity > 0.0)
                         Positioned(
                           top: 0,
@@ -186,7 +200,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                           ),
                         ),
 
-                      //! Execute Slide 2 Builder with parameters
                       if (widget.slide2Header != null && slide2Opacity > 0.0)
                         Positioned.fill(
                           child: SafeArea(
@@ -243,9 +256,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
 
                     const SizedBox(height: 20),
 
-                    // =========================================================
-                    //? EXECUTE EACH SLIDE BUILDER WITH DYNAMIC PARAMS
-                    // =========================================================
                     ...widget.slideBuilders.map((builder) {
                       return Container(
                         width: double.infinity,
