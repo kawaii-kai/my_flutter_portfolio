@@ -99,7 +99,6 @@ flutter:
     - assets/images/flutter-original.svg
     - assets/images/gemini.svg
     - assets/images/git-original.svg
-    - assets/images/github-original.svg
     - assets/images/google-original.svg
     - assets/images/homebrew-original.svg
     - assets/images/ios_logo.svg
@@ -124,6 +123,14 @@ flutter:
     - assets/images/twitter-original.svg
     - assets/images/vscode-original.svg
     - assets/images/xcode-original.svg
+    - assets/images/iphonePic.jpg
+    - assets/images/messenger.svg
+    - assets/images/telegram.svg
+    - assets/images/icons8-whatsapp.svg
+    - assets/images/instagram.svg
+    - assets/images/github.svg
+    - assets/images/x.svg
+  
 
   #   - images/a_dot_ham.jpeg
 

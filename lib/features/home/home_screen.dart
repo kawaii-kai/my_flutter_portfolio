@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/features/home/responsive_screen_shell.dart';
 import 'package:my_portfolio/features/professional_summary/home_hero_header.dart';
@@ -53,7 +52,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
             TechnicakSkillsScreen(isMobile: isMobile, maxWidth: maxWidth),
 
         //? Slide 7
-        (isMobile, maxWidth) => const Center(child: SocialDeviceDashboard()),
+        (isMobile, maxWidth) =>
+            SocialDeviceDashboard(isMobile: isMobile, maxWidth: maxWidth),
       ],
     );
   }
