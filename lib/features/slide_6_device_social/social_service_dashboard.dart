@@ -3,149 +3,89 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/config/theme/color_manager.dart';
 import 'package:my_portfolio/config/theme/font_manager.dart';
+import 'package:my_portfolio/features/slide_6_device_social/device_icon.dart';
+import 'package:my_portfolio/features/slide_6_device_social/social_device_model.dart';
 
 class SocialDeviceDashboard extends StatelessWidget {
-  const SocialDeviceDashboard({super.key});
+  final double maxWidth;
+
+  final bool isMobile;
+
+  const SocialDeviceDashboard({
+    super.key,
+    required this.maxWidth,
+    required this.isMobile,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final SocialDeviceModel socialDeviceModel = SocialDeviceModel();
     final screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
-      height: screenHeight * 0.9, // Set height constraint for DeviceFrame
+      height: screenHeight * 0.9,
       child: DeviceFrame(
         device: Devices.ios.iPhone13,
         isFrameVisible: true,
         orientation: Orientation.portrait,
         screen: Scaffold(
-          backgroundColor: const Color(0xFF0F172A), // Dark slate background
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 12),
-                  // Avatar / Profile Pic
-                  const CircleAvatar(
-                    radius: 36,
-                    backgroundColor: Colors.indigoAccent,
-                    child: Icon(Icons.person, size: 40, color: Colors.white),
+          backgroundColor: Colors.white, // Dark slate background
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset('assets/images/iphonePic.jpg', fit: BoxFit.cover),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Kyla Baliao',
-                    style: GoogleFonts.spaceGrotesk(
-                      color: Colors.white,
-                      fontSize: FontSize.s18,
-                      fontWeight: FontWeightManager.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Mobile Developer • Flutter & iOS',
-                    style: GoogleFonts.spaceGrotesk(
-                      color: Colors.white70,
-                      fontSize: FontSize.s12,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  const Divider(color: Colors.white12),
-                  const SizedBox(height: 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 12),
 
-                  // Social Links List inside iPhone Screen
-                  Expanded(
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        _buildSocialCard(
-                          icon: Icons.code,
-                          title: 'GitHub',
-                          subtitle: '@github_username',
-                          color: ColorManager.primaryPurle,
-                          onTap: () {},
+                      // App Grid View (Forced 4 columns wide)
+                      Expanded(
+                        child: ListView(
+                          physics: const BouncingScrollPhysics(),
+                          children: [
+                            GridView.builder(
+                              shrinkWrap: true, // Required inside ListView
+                              physics:
+                                  const NeverScrollableScrollPhysics(), // Scroll handled by ListView
+                              itemCount: socialDeviceModel.apps.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount:
+                                        4, // Forces exactly 4 icons per row!
+                                    crossAxisSpacing: 16,
+                                    mainAxisSpacing: 16,
+                                    childAspectRatio:
+                                        0.85, // Adjusts height-to-width ratio for icon + label text
+                                  ),
+                              itemBuilder: (BuildContext context, int index) {
+                                final app = socialDeviceModel.apps[index];
+                                return DeviceIcons(
+                                  pic: app['pic'],
+                                  label: app['label'],
+                                  bColor: app['backgroundColor'],
+                                  onTap: () {
+                                    // Handle app click action here
+                                  },
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                        _buildSocialCard(
-                          icon: Icons.work,
-                          title: 'LinkedIn',
-                          subtitle: 'Connect on LinkedIn',
-                          color: Colors.blueAccent,
-                          onTap: () {},
-                        ),
-                        _buildSocialCard(
-                          icon: Icons.camera_alt,
-                          title: 'Instagram',
-                          subtitle: 'Personal & Dev Journey',
-                          color: Colors.pinkAccent,
-                          onTap: () {},
-                        ),
-                        _buildSocialCard(
-                          icon: Icons.email,
-                          title: 'Email',
-                          subtitle: 'getintouch@domain.com',
-                          color: Colors.tealAccent,
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
+                      ),
+
+                      // Footer branding text
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSocialCard({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Material(
-        color: Colors.grey[900],
-        borderRadius: BorderRadius.circular(8),
-        clipBehavior: Clip.antiAlias, //
-        child: ListTile(
-          dense: true,
-          leading: CircleAvatar(
-            radius: 16,
-            backgroundColor: color.withOpacity(0.2),
-            child: Icon(icon, size: 18, color: color),
-          ),
-          title: Text(
-            title,
-            style: GoogleFonts.spaceGrotesk(
-              color: Colors.white,
-              fontWeight: FontWeightManager.medium,
-              fontSize: FontSize.s14,
-            ),
-          ),
-          subtitle: Text(
-            subtitle,
-            style: 
-            GoogleFonts.spaceGrotesk(
-               color: Colors.white54,
-              fontSize: FontSize.s12,
-            ),
- 
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios,
-            size: 12,
-            color: Colors.white38,
-          ),
-          onTap: onTap,
         ),
       ),
     );
