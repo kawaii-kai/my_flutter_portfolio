@@ -5,14 +5,18 @@ import 'package:my_portfolio/config/theme/string_manager.dart';
 
 class HomeIntroBadge extends StatelessWidget {
   final bool isMobile;
-
-  const HomeIntroBadge({super.key, required this.isMobile});
+  final double maxWidth;
+  const HomeIntroBadge({
+    super.key,
+    required this.isMobile,
+    required this.maxWidth,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 450),
-      padding: const EdgeInsets.all(24),
+      constraints: BoxConstraints(maxWidth: maxWidth),
+      padding: EdgeInsets.all(isMobile ? 20 : 36),
       decoration: BoxDecoration(
         color: const Color(0xFF141622).withOpacity(0.85),
         borderRadius: BorderRadius.circular(20),
