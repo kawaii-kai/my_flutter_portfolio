@@ -50,11 +50,12 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
 
     // =========================================================================
     //? FULLY DYNAMIC TOTAL SLIDES CALCULATION
     // =========================================================================
-    // 1 (Intro) + 1 (Header) + number of dynamic slide builders
     final int totalSlides =
         (widget.slide1Intro != null ? 1 : 0) +
         (widget.slide2Header != null ? 1 : 0) +
@@ -93,7 +94,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
 
     final int currentSlide = getCalculatedSlide();
 
-    // Timings
     final double zoomProgress = (_scrollOffset / (screenHeight * 2.0)).clamp(
       0.0,
       1.0,
@@ -108,10 +108,9 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
           0.0,
           1.0,
         );
-
     final double exitDistance = (_scrollOffset - screenHeight).clamp(
       0.0,
-      screenHeight,
+      screenHeight * (isMobile ? 1.3 : 1.0),
     );
     final double exitTopOffset = -exitDistance;
 
@@ -137,7 +136,11 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                 top: exitTopOffset,
                 left: 0,
                 right: 0,
-                height: screenHeight,
+                height:
+                    screenHeight *
+                    (isMobile
+                        ? 1.25
+                        : 1.0), 
                 child: ClipRect(
                   child: Stack(
                     children: [
@@ -203,14 +206,34 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                       if (widget.slide2Header != null && slide2Opacity > 0.0)
                         Positioned.fill(
                           child: SafeArea(
-                            child: Center(
-                              child: Opacity(
-                                opacity: slide2Opacity,
-                                child: widget.slide2Header!(
-                                  isMobile,
-                                  effectiveMaxWidth,
-                                ),
-                              ),
+                            child: LayoutBuilder(
+                              builder: (context, constraints) {
+                                return SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
+                                  child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      minHeight: constraints.maxHeight,
+                                    ),
+                                    child: Opacity(
+                                      opacity: slide2Opacity,
+                                      child: Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                          24.0,
+                                          24.0,
+                                          24.0,
+                                          isMobile ? 140.0 : 24.0,
+                                        ),
+                                        child: Center(
+                                          child: widget.slide2Header!(
+                                            isMobile,
+                                            effectiveMaxWidth,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -226,7 +249,8 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                 controller: _scrollController,
                 child: Column(
                   children: [
-                    SizedBox(height: screenHeight * 2.0),
+                    SizedBox(height: screenHeight * (isMobile ? 2.0 : 2.0)),
+                    if (isMobile) const SizedBox(height: 190),
 
                     Center(
                       child: Container(
@@ -253,7 +277,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 20),
 
                     ...widget.slideBuilders.map((builder) {
@@ -276,7 +299,6 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                   ],
                 ),
               ),
-
               // ---------------------------------------------------------------
               //? LAYER 4: DYNAMIC SIDE SCROLLBAR INDICATOR
               // ---------------------------------------------------------------
