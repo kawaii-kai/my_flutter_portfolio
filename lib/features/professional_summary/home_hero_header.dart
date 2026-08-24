@@ -5,7 +5,13 @@ import 'package:my_portfolio/config/theme/string_manager.dart';
 import 'package:my_portfolio/features/professional_summary/layout_metric_pill.dart';
 
 class HomeHeroHeader extends StatelessWidget {
-  const HomeHeroHeader({super.key});
+  final bool isMobile;
+  final double maxWidth;
+  const HomeHeroHeader({
+    super.key,
+    required this.isMobile,
+    required this.maxWidth,
+  });
 
   @override
   Widget build(BuildContext context) {
