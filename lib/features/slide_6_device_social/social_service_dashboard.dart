@@ -1,8 +1,6 @@
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:my_portfolio/config/theme/color_manager.dart';
-import 'package:my_portfolio/config/theme/font_manager.dart';
+import 'package:my_portfolio/core/utils/url_services.dart';
 import 'package:my_portfolio/features/slide_6_device_social/device_icon.dart';
 import 'package:my_portfolio/features/slide_6_device_social/social_device_model.dart';
 
@@ -69,8 +67,13 @@ class SocialDeviceDashboard extends StatelessWidget {
                                   pic: app['pic'],
                                   label: app['label'],
                                   bColor: app['backgroundColor'],
+                                  url: app['url'],
                                   onTap: () {
-                                    // Handle app click action here
+                                    UrlServices.openUrl(
+                                      app['url'] ?? "",
+                                      app['label'],
+                                      UrlType.url,
+                                    );
                                   },
                                 );
                               },
