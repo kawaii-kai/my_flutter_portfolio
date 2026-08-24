@@ -21,11 +21,7 @@ class IDEToolingModel {
       'level': 'Advanced',
       'icon': 'assets/images/git-original.svg',
     },
-    {
-      'name': 'GitHub',
-      'level': 'Advanced',
-      'icon': 'assets/images/github-original.svg',
-    },
+    {'name': 'GitHub', 'level': 'Advanced', 'icon': 'assets/images/github.svg'},
     {
       'name': 'Homebrew',
       'level': 'Intermediate',
@@ -46,7 +42,7 @@ class IDEToolingModel {
       'level': 'Beginner',
       'icon': 'assets/images/docker-original.svg',
     },
-     {
+    {
       'name': 'Linux',
       'level': 'Beginner',
       'icon': 'assets/images/linux-original.svg',
