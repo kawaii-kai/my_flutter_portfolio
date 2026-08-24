@@ -6,11 +6,13 @@ class DeviceIcons extends StatelessWidget {
   final String pic;
   final VoidCallback onTap;
   final Color? bColor;
+  final String url;
   const DeviceIcons({
     super.key,
     required this.pic,
     required this.onTap,
     required this.label,
+    required this.url,
     this.bColor,
   });
 
