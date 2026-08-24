@@ -27,8 +27,10 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
       // =======================================================================
       //? 1. FIXED OVERLAY SLIDES (SLIDES 1 & 2)
       // =======================================================================
-      slide1Intro: (isMobile, maxWidth) => HomeIntroBadge(isMobile: isMobile),
-      slide2Header: (isMobile, maxWidth) => const HomeHeroHeader(),
+      slide1Intro: (isMobile, maxWidth) =>
+          HomeIntroBadge(isMobile: isMobile, maxWidth: maxWidth),
+      slide2Header: (isMobile, maxWidth) =>
+          HomeHeroHeader(isMobile: isMobile, maxWidth: maxWidth),
 
       // =======================================================================
       //? 2. SCROLLING SLIDES PIPELINE (SLIDES 3 ONWARD)
