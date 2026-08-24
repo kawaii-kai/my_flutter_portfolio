@@ -98,7 +98,7 @@ flutter:
     - assets/images/figma-original.svg
     - assets/images/flutter-original.svg
     - assets/images/gemini.svg
-    - assets/images/git-original.svg
+    - assets/images/git-original.svg    
     - assets/images/google-original.svg
     - assets/images/homebrew-original.svg
     - assets/images/ios_logo.svg
