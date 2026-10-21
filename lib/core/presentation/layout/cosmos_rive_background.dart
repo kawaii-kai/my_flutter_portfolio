@@ -6,18 +6,15 @@ class CosmosRiveBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RiveAnimation.asset(
-      'assets/rive/cosmos.riv',
-      fit: BoxFit.cover,
-      stateMachines: ['flying'],
-      onInit: (artboard) {
-        if (artboard.animations.isNotEmpty) {
-          final animName = artboard.animations.first.name;
-          final controller = SimpleAnimation(animName, autoplay: true);
-          artboard.addController(controller);
-          debugPrint('▶️ Auto-playing first animation: "$animName"');
-        }
-      },
+    return RepaintBoundary(
+      child: RiveAnimation.asset(
+        'assets/rive/cosmos.riv',
+        fit: BoxFit.cover,
+        stateMachines: const ['flying'],
+        onInit: (artboard) {
+          debugPrint('✨ Cosmos Rive background initialized successfully.');
+        },
+      ),
     );
   }
 }
