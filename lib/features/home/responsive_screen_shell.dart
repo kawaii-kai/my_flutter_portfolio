@@ -127,7 +127,12 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
               // ---------------------------------------------------------------
               //? LAYER 1: FIXED COSMOS RIVE BACKGROUND
               // ---------------------------------------------------------------
-              const Positioned.fill(child: CosmosRiveBackground()),
+              Positioned.fill(
+                child: Container(
+                  color: const Color(0xFF0D0E15),
+                  child: const Text(""),
+                ),
+              ),
 
               // ---------------------------------------------------------------
               //? LAYER 2: MAGAZINE COVER HERO (SLIDES 1 & 2 FIXED OVERLAY)
@@ -136,11 +141,7 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                 top: exitTopOffset,
                 left: 0,
                 right: 0,
-                height:
-                    screenHeight *
-                    (isMobile
-                        ? 1.25
-                        : 1.0), 
+                height: screenHeight * (isMobile ? 1.25 : 1.0),
                 child: ClipRect(
                   child: Stack(
                     children: [
