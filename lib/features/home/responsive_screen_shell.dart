@@ -160,14 +160,18 @@ class _ResponsiveScreenShellState extends State<ResponsiveScreenShell> {
                             ).createShader(rect);
                           },
                           blendMode: BlendMode.dstIn,
-                          child: Transform.scale(
-                            scale: imageScale,
-                            child: Image.asset(
-                              'assets/background/dark_mode_profile.jpg',
-                              fit: BoxFit.cover,
-                              alignment: Alignment.center,
-                            ),
+                          child: 
+                          Container(
+                            color: const Color(0xFF0D0E15),
                           ),
+                          // Transform.scale(
+                          //   scale: imageScale,
+                          //   child: Image.asset(
+                          //     'assets/background/dark_mode_profile.jpg',
+                          //     fit: BoxFit.cover,
+                          //     alignment: Alignment.center,
+                          //   ),
+                          // ),
                         ),
                       ),
                       Positioned.fill(
